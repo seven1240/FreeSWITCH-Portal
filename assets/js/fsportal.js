@@ -1,3 +1,11 @@
+/*
+
+The FreeSWITCH Portal Project is Created by Seven Du (http://www.dujinfang.com).
+
+Available at MPL1.1 Licence.
+
+*/
+
 var App = Ember.Application.create({
 	LOG_TRANSITIONS: true,
 	rootElement: $('#container'),
