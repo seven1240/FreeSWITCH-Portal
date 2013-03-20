@@ -6,6 +6,8 @@ It can be used by FreeSWITCH funs, administrators, developers etc.
 
 It does not aims to replace GUIs such as fusionPBX or blue.box.
 
+It would be very easy to use and super helpful for new FreeSWITCH users.
+
 ## Philosophy
 
 To provide a GUI out of the box without depends on external resources like PHP or a webserver such as Apache or Nginx.
@@ -31,19 +33,23 @@ If you it asking for username and password you can find them in /usr/local/frees
 
 ## Todo
 
-* Websocket - by add websocket support in FreeSWITCH we can see channel changes lively, I have some working code as a patch to mod\_event\_socket.
+* Websocket: by add websocket support in FreeSWITCH we can see channel changes lively, I have some working code as a patch to mod\_event\_socket.
 
-* Modify users - A raw idea would be something like below and reloadxml.
+* Modify users: A raw idea to add a new user would be something like below and reloadxml.
 
      sed -e 's/1000/new-user/g' 1000.xml > new-user.xml
 
-* Web terminal - With terminal.js like things and websocket we can really build a webconsole
+* Modify dialplan and/or other XMLs: possible to use some online XML editor and can save the XML with some lua or C code at the backend, although there are security concerns.
 
-* Debugging/SIP tracing - Yeah, more magic
+* Store information in DB: I guess the Dbh handle in lua should can do something like this.
+
+* Web terminal: With terminal.js like things and websocket we can really build a web version of fs_cli
+
+* Logging, Event Debugging or SIP tracing: Yeah, more magic
 
 ## Security
 
-Don't put this on your production server as I haven't think anything about security.
+The primary goal is to help new users learn and use FreeSWITCH. Please DON'T put this on your production server as I haven't think anything about security.
 
 ## Development
 
