@@ -49,7 +49,6 @@ App.ShowEndpointsRoute = Ember.Route.extend({
 	setupController: function(controller) {
 		// Set the Controller's `title`
 		controller.set('title', "ShowEndpoints");
-		console.log("showSomething");
 		console.log(controller);
 		App.showEndpointsController.load();
   	}//,
@@ -58,12 +57,20 @@ App.ShowEndpointsRoute = Ember.Route.extend({
   	// }
 });
 
+App.ShowCodecsRoute = Ember.Route.extend({
+	setupController: function(controller) {
+		App.showCodecsController.load();
+  	}
+});
+
 App.Router.map(function(){
 	this.route("calls");
 	this.route("channels");
 	this.route("showApplications");
 	this.route("showEndpoints");
-	this.route("showDialplans");
+	this.route("showCodecs");
+	this.route("showFiles");
+	this.route("showAPIs");
 	this.route("show");
 	this.route("about", { path: "/about" });
 });
@@ -163,6 +170,25 @@ App.showEndpointsController = Ember.ArrayController.create({
 	load: function() {
 		var me = this;
 		$.getJSON("/api/show?endpoints%20as%20json", function(data){
+			  // var channels = JSON.parse(data);
+			console.log(data.row_count);
+			me.set('total', data.row_count);
+			me.content.clear();
+			if (data.row_count == 0) return;
+
+			me.pushObjects(data.rows);
+
+		});
+	}
+});
+
+App.showCodecsController = Ember.ArrayController.create({
+	content: [],
+	init: function(){
+	},
+	load: function() {
+		var me = this;
+		$.getJSON("/api/show?codec%20as%20json", function(data){
 			  // var channels = JSON.parse(data);
 			console.log(data.row_count);
 			me.set('total', data.row_count);

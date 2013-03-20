@@ -108,10 +108,41 @@
 		</div>
 	</script>
 
+	<script type="text/x-handlebars" data-template-name="showCodecs">
+		<h1>Codecs</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showCodecsController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showFiles">
+		Unimplemented
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showAPIs">
+		Unimplemented
+	</script>
+
 	<script type="text/x-handlebars" data-template-name="show">
 		<h1>Show</h1>
-		{{#linkTo "showApplications"}} Applications {{/linkTo}}
-		{{#linkTo "showEndpoints"}} Endpoints {{/linkTo}}
+		{{#linkTo "showApplications"}} Applications {{/linkTo}} |
+		{{#linkTo "showEndpoints"}} Endpoints {{/linkTo}} |
+		{{#linkTo "showCodecs"}} Codecs {{/linkTo}} |
+		{{#linkTo "showFiles"}} Files {{/linkTo}} |
+		{{#linkTo "showAPIs"}} APIs {{/linkTo}}
 	</script>
 
 	<script type="text/x-handlebars" data-template-name="about">
