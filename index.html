@@ -217,6 +217,10 @@
 	</script>
 
 	<script type="text/x-handlebars" data-template-name="calls">
+	<div class="pull-right">
+		<label><input type="checkbox" id="auto_update_calls" value="1" onclick="auto_update_calls();">Auto Update</label>
+	</div>
+
 	<h1>Calls</h1>
 
 	<div>
@@ -298,6 +302,14 @@
 <script src="assets/js/bootstrap-typeahead.js"></script>
 -->
 <script type="text/javascript">
+
+	function auto_update_calls() {
+		if ($('#auto_update_calls')[0].checked) {
+			console.log("tick")
+			App.callsController.load();
+			setTimeout(auto_update_calls, 2000);
+		}
+	}
 
 	// $("#menu-channels").click(function(e){
 	// 	e.preventDefault();
