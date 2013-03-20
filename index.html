@@ -41,7 +41,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="brand" href="#">FreeSWITCH</a>
-				<div class="pull-right" id='ws-status'></div>
+				<div class="pull-right" id='ws-status' style="padding-top:5px"></div>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li class="active"><a href="#">Home</a></li>
@@ -273,7 +273,7 @@
 
 	try {
 		socket.onopen = function() {
-			$('#ws-status').html('Connected').css("color:green !important");
+			$('#ws-status').html('Socket Connected').css("color", "green");
 			// socket.send("event json all");
 			socket.send("event json CHANNEL_CREATE");
 			socket.send("event json CHANNEL_HANGUP_COMPLETE");
@@ -306,7 +306,7 @@
 		}
 
 		socket.onclose = function(){
-			$('#ws-status').html('Closed').css("color:red");
+			$('#ws-status').html('Socket Disconnected!').css("color", "red");
 		}
 	} catch(exception) {
 		alert('Error' + exception);
