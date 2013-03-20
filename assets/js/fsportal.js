@@ -48,7 +48,7 @@ App.ShowApplicationsRoute = Ember.Route.extend({
 App.ShowEndpointsRoute = Ember.Route.extend({
 	setupController: function(controller) {
 		// Set the Controller's `title`
-		// controller.set('title', "ShowApplications");
+		controller.set('title', "ShowEndpoints");
 		console.log("showSomething");
 		console.log(controller);
 		App.showEndpointsController.load();
