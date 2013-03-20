@@ -25,7 +25,7 @@ In FreeSWITCH you need to
 
 Open your browser (Only Chrome is tested) and go to
 
-    http://localhost:8080/porta/index.html
+    http://localhost:8080/portal/index.html
 
 ## Todo
 
