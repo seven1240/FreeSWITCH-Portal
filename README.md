@@ -17,7 +17,7 @@ Mainly developed with static html and Javascripts, and perhaps some lua scripts 
 Assume you installed FreeSWITCH in the default place - /usr/local/freeswitch, you can do
 
     cd /usr/local/freeswitch/htdocs
-    git clone https://github.com/seven1240/FreeSWITCH-Portal portal
+    git clone https://github.com/seven1240/FreeSWITCH-Portal.git portal
 
 In FreeSWITCH you need to
 
