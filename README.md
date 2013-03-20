@@ -27,6 +27,8 @@ Open your browser (Only Chrome is tested) and go to
 
     http://localhost:8080/portal/index.html
 
+If you it asking for username and password you can find them in /usr/local/freeswitch/conf/autoload_configs/xml\_rpc.conf.xml. For more information see <http://wiki.freeswitch.org/wiki/Mod_xml_rpc> .
+
 ## Todo
 
 * Websocket - by add websocket support in FreeSWITCH we can see channel changes lively, I have some working code as a patch to mod\_event\_socket.
@@ -45,6 +47,6 @@ Don't put this on your production server as I haven't think anything about secur
 
 ## Development
 
-I started this project to learn how to use [bootstrap](twitter.github.com/bootstrap/index.html) and [ember.js](twitter.github.com/bootstrap/index.html).
+I started this project to learn how to use [bootstrap](twitter.github.com/bootstrap/index.html) and [ember.js](twitter.github.com/bootstrap/index.html), the latter said it is a framework for creating **ambitious** web applications.
 
 Contributions and patches are welcome.
