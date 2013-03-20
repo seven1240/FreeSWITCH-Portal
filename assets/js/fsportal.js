@@ -63,6 +63,12 @@ App.ShowCodecsRoute = Ember.Route.extend({
   	}
 });
 
+App.UsersRoute = Ember.Route.extend({
+	setupController: function(controller) {
+		App.usersController.load();
+  	}
+});
+
 App.Router.map(function(){
 	this.route("calls");
 	this.route("channels");
@@ -72,7 +78,16 @@ App.Router.map(function(){
 	this.route("showFiles");
 	this.route("showAPIs");
 	this.route("show");
+	this.route("users");
 	this.route("about", { path: "/about" });
+});
+
+App.User = Em.Object.extend({
+	id: null,
+	context: null,
+	domain: null,
+	group: null,
+	contact: null
 });
 
 App.Call = Em.Object.extend({
@@ -197,6 +212,41 @@ App.showCodecsController = Ember.ArrayController.create({
 
 			me.pushObjects(data.rows);
 
+		});
+	}
+});
+
+App.usersController = Ember.ArrayController.create({
+	content: [],
+	init: function(){
+	},
+	load: function() {
+		var me = this;
+		$.get("/api/list_users", function(data){
+			  // var channels = JSON.parse(data);
+			console.log(data);
+			lines = data.split("\n");
+			console.log(lines);
+			me.content.clear();
+			var users = [];
+			for (var i=1; i<lines.length; i++) {
+				var line = lines[i];
+				var fields = line.split("|");
+				if (fields.length == 1) break;
+				var user = {
+					id: fields.shift(),
+					context: fields.shift(),
+					domain: fields.shift(),
+					group: fields.shift(),
+					contact: fields.shift(),
+					callgroup: fields.shift(),
+					cid_name: fields.shift(),
+					cid_number: fields.shift()
+				}
+				// me.pushObject(App.User.create(user));
+				users.push(App.User.create(user));
+			}
+				me.pushObjects(users);
 		});
 	}
 });

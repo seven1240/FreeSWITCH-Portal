@@ -45,6 +45,7 @@
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li class="active"><a href="#">Home</a></li>
+						<li><a id="menu-users" href="#users">Users</a></li>
 						<li><a id="menu-calls" href="#calls">Calls</a></li>
 						<li><a id="menu-channels" href="#channels">Channels</a></li>
 						<li><a href="#show">Show</a></li>
@@ -148,6 +149,36 @@
 	<script type="text/x-handlebars" data-template-name="about">
 		<h1>About</h1>
 		About this ...
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="users">
+		<h1>Users</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>Context</th>
+				<th>Domain</th>
+				<th>Group</th>
+				<th>Contact</th>
+				<th>Callgroup</th>
+				<th>Caller ID Name</th>
+				<th>Caller ID Number</th>
+			</tr>
+			{{#each App.usersController.content}}
+			<tr>
+				<td>{{ id }}</td>
+				<td>{{ context }}</td>
+				<td>{{ domain }}</td>
+				<td>{{ group }}</td>
+				<td>{{ contact }}</td>
+				<td>{{ callgroup }}</td>
+				<td>{{ cid_name }}</td>
+				<td>{{ cid_number }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
 	</script>
 
 	<script type="text/x-handlebars" data-template-name="calls">
