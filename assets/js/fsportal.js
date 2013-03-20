@@ -229,9 +229,7 @@ App.usersController = Ember.ArrayController.create({
 		var me = this;
 		$.get("/txtapi/list_users", function(data){
 			  // var channels = JSON.parse(data);
-			console.log(data);
 			lines = data.split("\n");
-			console.log(lines);
 			me.content.clear();
 			var users = [];
 			for (var i=1; i<lines.length; i++) {
