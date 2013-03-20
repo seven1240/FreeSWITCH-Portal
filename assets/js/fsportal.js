@@ -110,7 +110,7 @@ App.callsController = Ember.ArrayController.create({
 	},
 	load: function() {
 		var me = this;
-		$.getJSON("/api/show?calls%20as%20json", function(data){
+		$.getJSON("/txtapi/show?calls%20as%20json", function(data){
 			  // var channels = JSON.parse(data);
 			console.log(data.row_count);
 			me.set('total', data.row_count);
@@ -127,6 +127,11 @@ App.callsController = Ember.ArrayController.create({
 	dump: function(uuid) {
 		var obj = this.content.findProperty("uuid", uuid);
 		console.log(obj.getProperties(["uuid", "cid_num"]));
+	},
+	raw: function() {
+		$.get("/api/show?calls", function(data){
+			$('#aa').html(data);
+		});
 	}
 });
 
@@ -136,7 +141,7 @@ App.channelsController = Ember.ArrayController.create({
 	},
 	load: function() {
 		var me = this;
-		$.getJSON("/api/show?channels%20as%20json", function(data){
+		$.getJSON("/txtapi/show?channels%20as%20json", function(data){
 			  // var channels = JSON.parse(data);
 		 	console.log(data.row_count);
 			me.set('total', data.row_count);
@@ -165,7 +170,7 @@ App.applicationsController = Ember.ArrayController.create({
 	},
 	load: function() {
 		var me = this;
-		$.getJSON("/api/show?application%20as%20json", function(data){
+		$.getJSON("/txtapi/show?application%20as%20json", function(data){
 			  // var channels = JSON.parse(data);
 			console.log(data.row_count);
 			me.set('total', data.row_count);
@@ -184,7 +189,7 @@ App.showEndpointsController = Ember.ArrayController.create({
 	},
 	load: function() {
 		var me = this;
-		$.getJSON("/api/show?endpoints%20as%20json", function(data){
+		$.getJSON("/txtapi/show?endpoints%20as%20json", function(data){
 			  // var channels = JSON.parse(data);
 			console.log(data.row_count);
 			me.set('total', data.row_count);
@@ -203,7 +208,7 @@ App.showCodecsController = Ember.ArrayController.create({
 	},
 	load: function() {
 		var me = this;
-		$.getJSON("/api/show?codec%20as%20json", function(data){
+		$.getJSON("/txtapi/show?codec%20as%20json", function(data){
 			  // var channels = JSON.parse(data);
 			console.log(data.row_count);
 			me.set('total', data.row_count);
@@ -222,7 +227,7 @@ App.usersController = Ember.ArrayController.create({
 	},
 	load: function() {
 		var me = this;
-		$.get("/api/list_users", function(data){
+		$.get("/txtapi/list_users", function(data){
 			  // var channels = JSON.parse(data);
 			console.log(data);
 			lines = data.split("\n");
