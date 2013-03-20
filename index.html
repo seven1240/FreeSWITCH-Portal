@@ -47,6 +47,7 @@
 						<li class="active"><a href="#">Home</a></li>
 						<li><a id="menu-calls" href="#calls">Calls</a></li>
 						<li><a id="menu-channels" href="#channels">Channels</a></li>
+						<li><a href="#show">Show</a></li>
 						<li><a href="#about">About</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
@@ -59,12 +60,61 @@
 		<div id="channels" style="display:none"></div>
 	</div> <!-- /container -->
 
+	<div id="aa"></div>
 	<script type="text/x-handlebars" data-template-name="index">
 		<h1>Welcome to FreeSWITCH Portal</h1>
 		Welcome
 	</script>
 
-	<script type="text/x-handlebars" data-template-name="about" target="container">
+	<script type="text/x-handlebars" data-template-name="showApplications">
+		<h1>Applications</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Syntax</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.applicationsController.content}}
+			<tr>
+				<td>{{ name }}</td>
+				<td>{{ description }}</td>
+				<td>{{ syntax }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showEndpoints">
+		<h1>Endpoints</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showEndpointsController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="show">
+		<h1>Show</h1>
+		{{#linkTo "showApplications"}} Applications {{/linkTo}}
+		{{#linkTo "showEndpoints"}} Endpoints {{/linkTo}}
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="about">
 		<h1>About</h1>
 		About this ...
 	</script>
