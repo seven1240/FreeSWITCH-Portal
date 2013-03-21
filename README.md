@@ -37,7 +37,7 @@ If you it asking for username and password you can find them in /usr/local/frees
 
 * Modify users: A raw idea to add a new user would be something like below and reloadxml.
 
-     sed -e 's/1000/new-user/g' 1000.xml > new-user.xml
+    sed -e 's/1000/new-user/g' 1000.xml > new-user.xml
 
 * Modify dialplan and/or other XMLs: possible to use some online XML editor and can save the XML with some lua or C code at the backend, although there are security concerns.
 
