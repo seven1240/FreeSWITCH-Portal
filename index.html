@@ -365,28 +365,13 @@
 			var data = JSON.parse(msg.data);
 			console.log(data["Event-Name"]);
 
-			if (data["Event-Name"] == "CHANNEL_CREATE") {
-				var channel = {
-					uuid: data["Unique-ID"],
-					cid_num: data["Caller-Caller-ID-Number"],
-					dest: data["Caller-Destination-Number"],
-					callstate: data["Channel-Call-State"],
-					direction: data["Call-Direction"]
-				}
-				App.channelsController.pushObject(App.Channel.create(channel));
-			} else if (data["Event-Name"] == "CHANNEL_HANGUP_COMPLETE") {
-				App.channelsController.delete(data["Unique-ID"]);
-			} else if (data["Event-Name"] == "CHANNEL_CALLSTATE") {
-				var obj = App.channelsController.content.findProperty("uuid", data["Unique-ID"]);
-				if (obj) {
-					obj.set("callstate", data["Channel-Call-State"]);
-				}
-
-			}
+			eventCallback(data);
 		}
 
 		socket.onclose = function(){
 			$('#ws-status').html('Socket Disconnected!').css("color", "red");
+			console.log("socket disconnected, using event_sink");
+			// setInterval("App.channelsController.checkEvent()", 2000);
 		}
 	} catch(exception) {
 		alert('Error' + exception);

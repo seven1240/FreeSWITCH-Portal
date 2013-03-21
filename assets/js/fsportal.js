@@ -169,6 +169,7 @@ App.callsController = Ember.ArrayController.create({
 
 App.channelsController = Ember.ArrayController.create({
 	content: [],
+	listener: undefined,
 	init: function(){
 	},
 	load: function() {
@@ -192,6 +193,31 @@ App.channelsController = Ember.ArrayController.create({
 	dump: function(uuid) {
 		var obj = this.content.findProperty("uuid", uuid);
 		console.log(obj.getProperties(["uuid", "cid_num"]));
+	},
+	checkEvent: function () {
+		console.log("check");
+		var me = this;
+		if (!this.get("listener")) {
+			$.getJSON("/api/event_sink?command=create-listener&events=ALL&format=json", function(data){
+				console.log(data);
+				if (data.listener) {
+					me.set("listener", data.listener["listen-id"]);
+				}
+			});
+		}
+		if (!me.get("listener")) return;
+
+		$.getJSON("/api/event_sink?command=check-listener&listen-id=" +
+			me.get("listener") + "&format=json", function(data){
+			console.log(data);
+			if (!data.listener) {
+				me.set("listener", undefined);
+			} else {
+				data.events.forEach(function(e) {
+					eventCallback(e);
+				});
+			}
+		});
 	}
 
 });
@@ -288,3 +314,25 @@ App.usersController = Ember.ArrayController.create({
 
 App.initialize();
 
+
+function eventCallback(data) {
+	console.log(data["Event-Name"]);
+	if (data["Event-Name"] == "CHANNEL_CREATE") {
+		var channel = {
+			uuid: data["Unique-ID"],
+			cid_num: data["Caller-Caller-ID-Number"],
+			dest: data["Caller-Destination-Number"],
+			callstate: data["Channel-Call-State"],
+			direction: data["Call-Direction"]
+		}
+		App.channelsController.pushObject(App.Channel.create(channel));
+	} else if (data["Event-Name"] == "CHANNEL_HANGUP_COMPLETE") {
+		App.channelsController.delete(data["Unique-ID"]);
+	} else if (data["Event-Name"] == "CHANNEL_CALLSTATE") {
+		var obj = App.channelsController.content.findProperty("uuid", data["Unique-ID"]);
+		if (obj) {
+			obj.set("callstate", data["Channel-Call-State"]);
+		}
+
+	}
+}
