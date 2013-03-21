@@ -372,6 +372,7 @@
 			$('#ws-status').html('Socket Disconnected!').css("color", "red");
 			console.log("socket disconnected, using event_sink");
 			// setInterval("App.channelsController.checkEvent()", 2000);
+			setInterval("App.channelsController.checkXMLEvent()", 2000);
 		}
 	} catch(exception) {
 		alert('Error' + exception);

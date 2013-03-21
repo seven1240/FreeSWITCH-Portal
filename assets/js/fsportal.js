@@ -218,6 +218,40 @@ App.channelsController = Ember.ArrayController.create({
 				});
 			}
 		});
+	},
+	checkXMLEvent: function() {
+		console.log("check XML Event");
+		var me = this;
+		if (!this.get("listener")) {
+			$.get("/api/event_sink?command=create-listener&events=ALL", function(data){
+				// console.log(data);
+				var listen_id = data.getElementsByTagName("listen-id")[0];
+				if (listen_id) {
+					me.set("listener", listen_id.textContent);
+				}
+			});
+		}
+
+		if (!me.get("listener")) return;
+
+		$.get("/api/event_sink?command=check-listener&listen-id=" + me.get("listener"), function(data){
+			// console.log(data);
+			var listener = data.getElementsByTagName("listener")[0];
+			if (!listener) {
+				me.set("listener", undefined);
+			} else {
+				var events = data.getElementsByTagName("event");
+				for (var i=0; i<events.length; i++) {
+					var e = {};
+					var headers = events[i].getElementsByTagName("headers")[0];
+					for (var j=0; j<headers.childNodes.length; j++) {
+						e[headers.childNodes[j].nodeName] = headers.childNodes[j].textContent;
+					}
+					// console.log(e);
+					eventCallback(e);
+				}
+			}
+		});
 	}
 
 });
@@ -336,3 +370,4 @@ function eventCallback(data) {
 
 	}
 }
+
