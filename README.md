@@ -45,6 +45,10 @@ If you it asking for username and password you can find them in /usr/local/frees
 
 * Web terminal: With terminal.js like things and websocket we can really build a web version of fs_cli
 
+* rtmp web client support to make and receive calls
+
+* WebRTC?
+
 * Logging, Event Debugging or SIP tracing: Yeah, more magic
 
 ## Security
