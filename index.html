@@ -370,7 +370,7 @@
 
 		socket.onclose = function(){
 			$('#ws-status').html('Socket Disconnected!').css("color", "red");
-			console.log("socket disconnected, using event_sink");
+			console.log("socket disconnected, fallback to event_sink");
 			// setInterval("App.channelsController.checkEvent()", 2000);
 			setInterval("App.channelsController.checkXMLEvent()", 2000);
 		}
