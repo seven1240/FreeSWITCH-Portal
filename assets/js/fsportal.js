@@ -194,7 +194,7 @@ App.channelsController = Ember.ArrayController.create({
 		var obj = this.content.findProperty("uuid", uuid);
 		console.log(obj.getProperties(["uuid", "cid_num"]));
 	},
-	checkEvent: function () {
+	checkEvent: function () { // event_sink with json is not yet support in FS
 		console.log("check");
 		var me = this;
 		if (!this.get("listener")) {
