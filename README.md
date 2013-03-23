@@ -51,6 +51,8 @@ If you it asking for username and password you can find them in /usr/local/frees
 
 * Logging, Event Debugging or SIP tracing: Yeah, more magic
 
+* i18n
+
 ## Security
 
 The primary goal is to help new users learn and use FreeSWITCH. Please DON'T put this on your production server as I haven't think anything about security.
