@@ -35,7 +35,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Bootstrap, from Twitter</title>
+	<title>FreeSWITCH Portal</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -43,9 +43,15 @@
 	<!-- Le styles -->
 	<link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet">
 	<style>
-	body {
-		padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-	}
+		body {
+			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+		}
+		#container {
+			min-height: 500px;
+		}
+		#footer {
+			text-align: center;
+		}
 	</style>
 	<link href="assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -89,14 +95,81 @@
 	</div>
 
 	<div class="container" id="container">
-		<div id="calls" style="display:none"></div>
-		<div id="channels" style="display:none"></div>
+		<div id="main">
+			<div id="calls" style="display:none"></div>
+			<div id="channels" style="display:none"></div>
+		</div>
 	</div> <!-- /container -->
 
-	<div id="aa"></div>
+
+	<div class="container" id="footer">
+		&copy; <a href="http://www.freeswitch.org">FreeSWITCH.org</a>
+		Join us on <a href="http://www.cluecon.com">ClueCon</a>!
+	</div>
+
 	<script type="text/x-handlebars" data-template-name="index">
-		<h1>Welcome to FreeSWITCH Portal</h1>
-		Welcome
+		<h1>Welcome to FreeSWITCH !</h1>
+		---- The World's First Cross-Platform Scalable FREE Multi-Protocol Soft Switch
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<div id="serverStatus"></div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showRegistrations">
+		<h1>Registrations</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Reg User</th>
+				<th>Realm</th>
+				<th>Expires</th>
+				<th>Network IP</th>
+				<th>Network Port</th>
+				<th>Network Proto</th>
+				<th>Hostname</th>
+				<th>Metadata</th>
+				<th>Token / Url</th>
+			</tr>
+			{{#each App.registrationsController.content}}
+			<tr>
+				<td>{{ reg_user }}</td>
+				<td>{{ realm }}</td>
+				<td>{{ expires }}</td>
+				<td>{{ network_ip }}</td>
+				<td>{{ network_port }}</td>
+				<td>{{ network_proto }}</td>
+				<td>{{ hostname }}</td>
+				<td>{{ metadata }}</td>
+				<td>{{ token }}<br>{{ url }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showModules">
+		<h1>Modules</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+				<th>Fileame</th>
+			</tr>
+			{{#each App.showModulesController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+				<td>{{ filename }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
 	</script>
 
 	<script type="text/x-handlebars" data-template-name="showApplications">
@@ -162,20 +235,270 @@
 	</script>
 
 	<script type="text/x-handlebars" data-template-name="showFiles">
-		Unimplemented
+		<h1>Files</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showFilesController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
 	</script>
 
 	<script type="text/x-handlebars" data-template-name="showAPIs">
-		Unimplemented
+		<h1>APIs</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Name /<br>Description</th>
+				<th>Syntax</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showAPIsController.content}}
+			<tr>
+				<td>
+					<strong>{{ name }}</strong><br>
+					{{ description }}
+				</td>
+				<td><pre>{{ syntax }}</pre></td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showAliases">
+		<h1>Aliases</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Sticky</th>
+				<th>Alias</th>
+				<th>Command</th>
+				<th>Hostname</th>
+			</tr>
+			{{#each App.showAliasesController.content}}
+			<tr>
+				<td>{{ sticky }}</td>
+				<td>{{ alias }}</td>
+				<td>{{ command }}</td>
+				<td>{{ hostname }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showCompletes">
+		<h1>Complete</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Sticky</th>
+				<th>A1</th>
+				<th>A2</th>
+				<th>A3</th>
+				<th>A4</th>
+				<th>A5</th>
+				<th>A6</th>
+				<th>A7</th>
+				<th>A8</th>
+				<th>A9</th>
+				<th>A10</th>
+				<th>Hostname</th>
+			</tr>
+			{{#each App.showCompletesController.content}}
+			<tr>
+				<td>{{ sticky }}</td>
+				<td>{{ a1 }}</td>
+				<td>{{ a2 }}</td>
+				<td>{{ a3 }}</td>
+				<td>{{ a4 }}</td>
+				<td>{{ a5 }}</td>
+				<td>{{ a6 }}</td>
+				<td>{{ a7 }}</td>
+				<td>{{ a8 }}</td>
+				<td>{{ a9 }}</td>
+				<td>{{ a10 }}</td>
+				<td>{{ hostname }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showManagements">
+		<h1>Say</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showManagementsController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showSays">
+		<h1>Say</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showSaysController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showChats">
+		<h1>Chat</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showChatsController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showInterfaces">
+		<h1>Interfaces</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showInterfacesController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showInterfaceTypes">
+		<h1>Interface Types</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Total</th>
+			</tr>
+			{{#each App.showInterfaceTypesController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ total }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showTasks">
+		<h1>Tasks</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>Description</th>
+				<th>Group</th>
+				<th>SQL Manager</th>
+				<th>Hostname</th>
+			</tr>
+			{{#each App.showTasksController.content}}
+			<tr>
+				<td>{{ task_id }}</td>
+				<td>{{ task_desc }}</td>
+				<td>{{ task_group }}</td>
+				<td>{{ task_sql_manager }}</td>
+				<td>{{ hostname }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="showLimits">
+		<h1>Limits</h1>
+		<div>
+			<table class="table">
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+				<th>iKey</th>
+			</tr>
+			{{#each App.showLimitsController.content}}
+			<tr>
+				<td>{{ type }}</td>
+				<td>{{ name }}</td>
+				<td>{{ ikey }}</td>
+			</tr>
+			{{/each}}
+			</table>
+		</div>
 	</script>
 
 	<script type="text/x-handlebars" data-template-name="show">
 		<h1>Show</h1>
+		{{#linkTo "showRegistrations"}} Registrations {{/linkTo}} |
+		{{#linkTo "showModules"}} Modules {{/linkTo}} |
 		{{#linkTo "showApplications"}} Applications {{/linkTo}} |
 		{{#linkTo "showEndpoints"}} Endpoints {{/linkTo}} |
 		{{#linkTo "showCodecs"}} Codecs {{/linkTo}} |
 		{{#linkTo "showFiles"}} Files {{/linkTo}} |
-		{{#linkTo "showAPIs"}} APIs {{/linkTo}}
+		{{#linkTo "showAPIs"}} APIs {{/linkTo}} |
+		{{#linkTo "showAliases"}} Aliases {{/linkTo}} |
+		{{#linkTo "showCompletes"}} Complete {{/linkTo}} |
+		{{#linkTo "showChats"}} Chat {{/linkTo}} |
+		{{#linkTo "showManagements"}} Management {{/linkTo}} |
+		Nat_map |
+		{{#linkTo "showSays"}} Say {{/linkTo}} |
+		{{#linkTo "showInterfaces"}} Interfaces {{/linkTo}} |
+		{{#linkTo "showInterfaceTypes"}} InterfaceTypes {{/linkTo}} |
+		{{#linkTo "showTasks"}} Tasks {{/linkTo}} |
+		{{#linkTo "showLimits"}} Limits {{/linkTo}}
+
 	</script>
 
 	<script type="text/x-handlebars" data-template-name="about">
@@ -303,6 +626,12 @@
 -->
 <script type="text/javascript">
 
+	$(window).on('beforeunload', function() {
+		if (socket) {
+			socket.close();
+		}
+	});
+
 	function auto_update_calls() {
 		var x = $('#auto_update_calls')[0];
 		if (typeof x != "undefined" && x.checked) {
@@ -349,7 +678,9 @@
 
 	<script type="text/javascript">
 
-	var socket = new WebSocket("ws://localhost:8086/socket", "websocket");
+	var port = document.location.port;
+	// var port = 8081; // for test
+	var socket = new WebSocket("ws://" + document.location.hostname + ":" + port + "/socket", "websocket");
 
 	try {
 		socket.onopen = function() {
